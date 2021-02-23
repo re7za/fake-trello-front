@@ -1,0 +1,44 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "standard"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "comma-dangle": "off",
+    "spaced-comment": "off",
+    "semi": "off",
+    "space-before-function-paren": "off",
+    "react/prop-types": "off",
+    "no-unused-vars": "warn",
+    "multiline-ternary": "off",
+    "curly": "off",
+    // "no-empty-pattern": "off",
+    "prefer-const": "warn",
+    "no-unneeded-ternary": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
+      }
+    ],
+    "indent": "off",
+    "quotes": [2, "double"],
+    "jsx-a11y/media-has-caption": "off"
+  }
+}

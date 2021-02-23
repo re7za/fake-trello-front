@@ -1,0 +1,18 @@
+/** @format */
+
+@font-face {
+  font-family: 'Tanha';
+  src: url('Tanha.eot');
+  src: url('Tanha.eot?#iefix') format('embedded-opentype'),
+    url('Tanha.woff2') format('woff2'), url('Tanha.woff') format('woff'),
+    url('Tanha.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+button,
+a,
+span,
+input {
+  font-family: 'Tanha';
+}
