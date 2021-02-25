@@ -1,6 +1,8 @@
 /** @format */
 import React, { useRef } from "react";
 
+// Next
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 // Services
@@ -58,6 +60,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const classes = useStyles();
 
+  const router = useRouter();
+
   const usernameRef = useRef("");
   const passwordRef = useRef("");
 
@@ -66,7 +70,10 @@ export default function Home() {
       username: usernameRef.current,
       password: passwordRef.current,
     });
-    console.log("login", res);
+
+    if (res.status >= 200 && res.status < 300) {
+      router.push("/home");
+    } else console.log("Something is wrong!", res);
   };
 
   return (
