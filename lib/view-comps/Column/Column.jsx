@@ -1,9 +1,5 @@
 /** @format */
-import React, { useRef } from "react";
-
-// Services
-import createTask from "services/task/createTask";
-import deleteList from "services/list/deleteList";
+import React from "react";
 
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,12 +12,11 @@ import IconButton from "@material-ui/core/IconButton";
 
 // MUI Icons
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
-import AssignmentIcon from "@material-ui/icons/Assignment";
 
 // Misc
 import Task from "../Task";
-import useModal from "../useModal";
-import TextInput from "../TextInput";
+import useNewTaskModal from "./useNewTaskModal";
+import useDeleteListModal from "./useDeleteListModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,97 +49,25 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     bottom: "0px",
   },
-  formBox: {
-    maxWidth: "315px",
-  },
 }));
 
 function Column({ column, refetch }) {
   const classes = useStyles();
 
-  const newTaskNameRef = useRef("");
-  const newTaskDescriptionRef = useRef("");
-
-  const handleNewTask = async () => {
-    if (newTaskNameRef.current === "") return;
-    const res = await createTask(
-      newTaskNameRef.current,
-      newTaskDescriptionRef.current,
-      column.id
-    );
-    if (res.status >= 200 && res.status < 300) {
-      refetch();
-    }
-  };
-
-  const handleDeleteList = async () => {
-    const res = await deleteList(column.id);
-    if (res.status >= 200 && res.status < 300) refetch();
-  };
-
-  const newTaskModal = useModal({
-    title: "تسک جدید",
-    variant: "primary",
-    buttons: [
-      {
-        label: "ساختن",
-        variant: "contained",
-        onClick: handleNewTask,
-      },
-      {
-        label: "لغو",
-      },
-    ],
-    icon: AssignmentIcon,
+  const newTaskModal = useNewTaskModal({
+    columnId: column.id,
+    refetch,
   });
 
-  const deleteListModal = useModal({
-    title: "حذف لیست",
-    variant: "danger",
-    buttons: [
-      {
-        label: "حذف",
-        variant: "contained",
-        onClick: handleDeleteList,
-      },
-      {
-        label: "لغو",
-      },
-    ],
-    icon: DeleteRoundedIcon,
+  const deleteListModal = useDeleteListModal({
+    column,
+    refetch,
   });
 
   return (
     <>
-      <newTaskModal.Modal>
-        <newTaskModal.Description>
-          نام تسک جدید را وارد کنید.
-        </newTaskModal.Description>
-        <Box className={classes.formBox}>
-          <form autoComplete="off">
-            <TextInput valueRef={newTaskNameRef} label="نام تسک" rtl />
-            <TextInput
-              valueRef={newTaskDescriptionRef}
-              label="توضیحات تسک"
-              rtl
-            />
-          </form>
-        </Box>
-      </newTaskModal.Modal>
-      <deleteListModal.Modal>
-        <deleteListModal.Description>
-          آیا از حذف لیست {column.name} مطمئن هستید؟
-        </deleteListModal.Description>
-        {column.tasks.length && (
-          <>
-            <deleteListModal.List items={["همه تسک های زیر حذف میشوند!"]} />
-            <deleteListModal.Box
-              title="تسک های عضو این لیست"
-              items={column.tasks.map((task) => task.name)}
-            />
-          </>
-        )}
-      </deleteListModal.Modal>
+      <newTaskModal.Modal />
+      <deleteListModal.Modal />
       <Paper className={classes.root} elevation={0} variant="outlined">
         <Box className={classes.header}>
           <Typography className={classes.title}>{column.name}</Typography>
