@@ -8,7 +8,7 @@ import deleteList from "services/list/deleteList";
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 
 // Misc
-import useModal from "../useModal";
+import useModal from "lib/view-comps/useModal";
 
 function useDeleteListModal({ column, refetch }) {
   const handleDeleteList = async () => {

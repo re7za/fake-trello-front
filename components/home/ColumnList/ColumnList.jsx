@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button";
 import ListIcon from "@material-ui/icons/List";
 
 // Misc
-import Column from "lib/view-comps/Column";
+import Column from "components/home/Column";
 import useModal from "lib/view-comps/useModal";
 import TextInput from "lib/view-comps/TextInput";
 

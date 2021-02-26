@@ -12,8 +12,8 @@ import Box from "@material-ui/core/Box";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 
 // Misc
-import useModal from "../useModal";
-import TextInput from "../TextInput";
+import useModal from "lib/view-comps/useModal";
+import TextInput from "lib/view-comps/TextInput";
 
 const useStyles = makeStyles((theme) => ({
   formBox: {
@@ -26,6 +26,8 @@ function useNewTaskModal({ columnId, refetch }) {
 
   const newTaskNameRef = useRef("");
   const newTaskDescriptionRef = useRef("");
+
+  // const checklist = {};
 
   const handleNewTask = async () => {
     if (newTaskNameRef.current === "") return;
@@ -44,7 +46,7 @@ function useNewTaskModal({ columnId, refetch }) {
     variant: "primary",
     buttons: [
       {
-        label: "ساختن",
+        label: "ذخیره",
         variant: "contained",
         onClick: handleNewTask,
       },
@@ -59,9 +61,6 @@ function useNewTaskModal({ columnId, refetch }) {
     open: () => newTaskModal.open(),
     Modal: () => (
       <newTaskModal.Modal>
-        <newTaskModal.Description>
-          نام تسک جدید را وارد کنید
-        </newTaskModal.Description>
         <Box className={classes.formBox}>
           <form autoComplete="off">
             <TextInput valueRef={newTaskNameRef} label="نام تسک" rtl />
