@@ -11,7 +11,7 @@ export default (url, options) => {
   if (token) {
     options = options || {};
     options.headers = options.headers || {};
-    options.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+    options.headers.Authorization = `Bearer ${token}`;
   }
 
   if (options && options.body) {

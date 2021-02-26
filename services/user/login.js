@@ -1,4 +1,4 @@
-import request from "./request";
+import request from "../request";
 
 export default async ({ username, password }) => {
   let res = await request("/login", {

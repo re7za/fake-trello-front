@@ -9,15 +9,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicTextFields({ usernameRef, label }) {
+export default function BasicTextFields({ valueRef, label, rtl }) {
   const classes = useStyles();
 
   return (
     <TextField
-      dir="ltr"
+      dir={rtl ? "rtl" : "ltr"}
       className={classes.root}
       label={label ? label : "username"}
-      onChange={(e) => (usernameRef.current = e.target.value)}
+      onChange={(e) => (valueRef.current = e.target.value)}
     />
   );
 }

@@ -1,7 +1,12 @@
 /** @format */
-import React from "react";
+import React, { useState, useEffect } from "react";
 
+// Next
+import Head from "next/head";
 // import Link from "next/link";
+
+// Services
+import request from "services/request";
 
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
@@ -42,28 +47,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+function Home() {
   const classes = useStyles();
 
-  const username = "mortza";
+  const [username, setUsername] = useState("");
+
+  const initialFetch = async () => {
+    let whoAmI = await request("/whoami");
+    whoAmI = await whoAmI.json();
+    setUsername(whoAmI.username);
+  };
+
+  useEffect(() => {
+    initialFetch();
+  }, []);
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.header}>
-        <Grid container alignItems="center">
-          <Grid item xs={3}>
-            <Box className={classes.headersBtns}>
-              <Typography className={classes.username}>{username}</Typography>
-            </Box>
+    <>
+      <Head>
+        <title>Home</title>
+      </Head>
+      <Box className={classes.root}>
+        <Box className={classes.header}>
+          <Grid container alignItems="center">
+            <Grid item xs={3}>
+              <Box className={classes.headersBtns}>
+                <Typography className={classes.username}>{username}</Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={9}>
+              <Typography className={classes.logo}>Trello</Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={9}>
-            <Typography className={classes.logo}>Trello</Typography>
-          </Grid>
-        </Grid>
+        </Box>
+        <Box className={classes.main}>
+          <ColumnList />
+        </Box>
       </Box>
-      <Box className={classes.main}>
-        <ColumnList />
-      </Box>
-    </Box>
+    </>
   );
 }
+
+export default Home;

@@ -39,6 +39,7 @@
     ],
     "indent": "off",
     "quotes": [2, "double"],
-    "jsx-a11y/media-has-caption": "off"
+    "jsx-a11y/media-has-caption": "off",
+    "react/display-name": "off"
   }
 }

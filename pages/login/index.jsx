@@ -1,10 +1,12 @@
 /** @format */
 import React, { useRef } from "react";
 
+// Next
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 // Services
-import signupUser from "services/signup";
+import loginUser from "services/user/login";
 
 // Images
 // import Background from "public/images/background.jpg";
@@ -58,36 +60,37 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const classes = useStyles();
 
+  const router = useRouter();
+
   const usernameRef = useRef("");
   const passwordRef = useRef("");
 
-  const handleSignup = async () => {
-    const res = await signupUser({
+  const handleLogin = async () => {
+    const res = await loginUser({
       username: usernameRef.current,
       password: passwordRef.current,
     });
-    console.log("signup", res);
+
+    if (res.status >= 200 && res.status < 300) {
+      router.push("/home");
+    } else console.log("Something is wrong!", res);
   };
 
   return (
     <Box className={classes.root}>
       <Paper className={classes.main} elevation={4} variant="outlined">
-        <Typography className={classes.title}>ثبت نام</Typography>
+        <Typography className={classes.title}>ورود</Typography>
         <Box className={classes.formContainer}>
           <form autoComplete="off">
             <Box className={classes.textFieldContainer}>
-              <TextInput usernameRef={usernameRef} />
+              <TextInput valueRef={usernameRef} />
             </Box>
             <Box className={classes.textFieldContainer}>
               <FormControl passwordRef={passwordRef} />
             </Box>
             <Box className={classes.buttons}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSignup}
-              >
-                ثبت نام
+              <Button variant="contained" color="primary" onClick={handleLogin}>
+                ورود
               </Button>
               <Button variant="outlined" color="primary">
                 <Link href="/">برگشت</Link>
@@ -95,7 +98,7 @@ export default function Home() {
             </Box>
           </form>
           <Box className={classes.loginBtn}>
-            <Link href="/login">حساب کاربری دارم</Link>
+            <Link href="/signup">حساب کاربری جدید</Link>
           </Box>
         </Box>
       </Paper>
