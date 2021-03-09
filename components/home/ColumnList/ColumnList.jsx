@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 // Services
 import createList from "services/list/createList";
+import request from "services/request";
 
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
@@ -17,9 +18,6 @@ import ListIcon from "@material-ui/icons/List";
 import Column from "components/home/Column";
 import useModal from "lib/view-comps/useModal";
 import TextInput from "lib/view-comps/TextInput";
-
-// Services
-import request from "services/request";
 
 const useStyles = makeStyles((theme) => ({
   container: {

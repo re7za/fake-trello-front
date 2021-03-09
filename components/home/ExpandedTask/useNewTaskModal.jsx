@@ -38,10 +38,17 @@ function useNewTaskModal({ columnId, refetch }) {
   });
 
   return {
-    open: () => newTaskModal.open(),
+    open: () => {
+      newTaskModal.open();
+    },
+    close: () => newTaskModal.close(),
     Modal: () => (
       <newTaskModal.Modal>
-        <ExpandedTask onUpdateTask={handleNewTask} close={newTaskModal.close} />
+        <ExpandedTask
+          onNewTask={handleNewTask}
+          close={newTaskModal.close}
+          refetch={refetch}
+        />
       </newTaskModal.Modal>
     ),
   };

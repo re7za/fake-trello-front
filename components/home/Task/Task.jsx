@@ -14,8 +14,11 @@ import IconButton from "@material-ui/core/IconButton";
 // MUI Icons
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 
+// Misc
+import useTaskModal from "./useTaskModal";
+
 const useStyles = makeStyles((theme) => ({
-  root: {
+  rootDoing: {
     borderBottom: "1px solid #eee",
     transition: "200ms",
     padding: theme.spacing(1),
@@ -23,6 +26,17 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     "&:hover": {
       backgroundColor: "#eee",
+    },
+  },
+  rootDone: {
+    borderBottom: "1px solid #eee",
+    transition: "200ms",
+    padding: theme.spacing(1),
+    position: "relative",
+    cursor: "pointer",
+    backgroundColor: "#8aee93",
+    "&:hover": {
+      backgroundColor: "#8aff93",
     },
   },
   description: {
@@ -44,22 +58,41 @@ function Task({ task, refetch }) {
     if (res.status >= 200 && res.status < 300) refetch();
   };
 
+  const taskModal = useTaskModal({
+    taskId: task.id,
+    refetch,
+  });
+
   return (
-    <Paper className={classes.root} elevation={0} square>
-      <Box pb={0.5}>
-        <Typography variant="subtitle2">{task.name}</Typography>
-      </Box>
-      <Box>
-        <Typography className={classes.description}>
-          {task.description}
-        </Typography>
-      </Box>
-      <Box className={classes.deleteBox}>
-        <IconButton aria-label="delete" onClick={handleDeleteTask}>
-          <DeleteRoundedIcon fontSize="small" />
-        </IconButton>
-      </Box>
-    </Paper>
+    <>
+      <taskModal.Modal />
+      <Paper
+        className={task.isDone ? classes.rootDone : classes.rootDoing}
+        elevation={0}
+        square
+        onClick={() => taskModal.open()}
+      >
+        <Box pb={0.5}>
+          <Typography variant="subtitle2">{task.name}</Typography>
+        </Box>
+        <Box>
+          <Typography className={classes.description}>
+            {task.description}
+          </Typography>
+        </Box>
+        <Box className={classes.deleteBox}>
+          <IconButton
+            aria-label="delete"
+            onClick={(event) => {
+              event.stopPropagation();
+              handleDeleteTask();
+            }}
+          >
+            <DeleteRoundedIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      </Paper>
+    </>
   );
 }
 

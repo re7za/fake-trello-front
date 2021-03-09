@@ -14,14 +14,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
   },
-  margin: {
-    margin: theme.spacing(1),
-  },
+  margin: {},
   withoutLabel: {
     marginTop: theme.spacing(3),
   },
   textField: {
-    width: "300px",
+    width: "100%",
   },
 }));
 

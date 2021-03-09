@@ -4,26 +4,20 @@ import React, { useState } from "react";
 
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-
-// MUI Icons
-import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: "relative",
     width: "100%",
   },
   searchInput: {
     width: "calc(100% - 16px)",
-    maxWidth: "500px",
     backgroundColor: "#f1f1f1",
     outline: "none",
     padding: "7px 15px",
     paddingRight: "45px",
     fontSize: "0.97rem",
     color: "#333",
-    border: "2px solid #f1f1f1",
+    border: `2px solid ${theme.pallete.primary.main}`,
     borderRadius: "4px",
     margin: "8px",
     transition: "200ms",
@@ -31,14 +25,6 @@ const useStyles = makeStyles((theme) => ({
       border: "2px solid #e91e63aa",
       backgroundColor: "#ffffff",
     },
-  },
-  brnContainer: {
-    position: "absolute",
-    top: "10px",
-    right: "12px",
-  },
-  icon: {
-    padding: "7px",
   },
 }));
 
@@ -86,7 +72,8 @@ function Searchbox({
       <span className={btnClass ? btnClass : classes.brnContainer}>
         <IconButton
           className={iconClass ? iconClass : classes.icon}
-          onClick={() => onClick(immidiateValue)}>
+          onClick={() => onClick(immidiateValue)}
+        >
           <SearchRoundedIcon />
         </IconButton>
       </span>

@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicTextFields({ valueRef, label, rtl, multiline }) {
+export default function BasicTextFields({ onChange, label, rtl, multiline }) {
   const classes = useStyles();
 
   return (
@@ -19,7 +19,7 @@ export default function BasicTextFields({ valueRef, label, rtl, multiline }) {
       rowsMax={6}
       className={classes.root}
       label={label ? label : "username"}
-      onChange={(e) => (valueRef.current = e.target.value)}
+      onChange={onChange}
     />
   );
 }
